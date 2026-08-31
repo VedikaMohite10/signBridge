@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:signbridge_dashboard/core/models/activity_log_entry.dart';
 import 'package:signbridge_dashboard/core/models/bridge_message.dart';
@@ -9,9 +10,9 @@ import 'package:signbridge_dashboard/services/real/hive_activity_log_service.dar
 import 'package:signbridge_dashboard/services/real/real_office_kit_client_service.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Feature flag — set to false to use real WebSocket bridge client & Hive logs.
+// Feature flag — automatically active on web or when explicitly set.
 // ─────────────────────────────────────────────────────────────────────────────
-const bool useMockServices = false;
+const bool useMockServices = kIsWeb;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Service Providers

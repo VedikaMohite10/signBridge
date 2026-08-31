@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,11 +11,13 @@ import 'package:signbridge_dashboard/features/dashboard/presentation/dashboard_s
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Hive on disk for persistent session logs
-  await Hive.initFlutter();
-  Hive.registerAdapter(ActivityLogEntryAdapter());
-  Hive.registerAdapter(EventTypeAdapter());
-  await Hive.openBox<ActivityLogEntry>(kActivityLogBox);
+  if (!kIsWeb) {
+    // Initialize Hive on disk for persistent session logs
+    await Hive.initFlutter();
+    Hive.registerAdapter(ActivityLogEntryAdapter());
+    Hive.registerAdapter(EventTypeAdapter());
+    await Hive.openBox<ActivityLogEntry>(kActivityLogBox);
+  }
 
   runApp(
     const ProviderScope(
